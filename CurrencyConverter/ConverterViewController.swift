@@ -57,9 +57,14 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
     var firstCurrencyState: Currency = Currency(code: .BYN, exchangeRate: [.BYN : 1.0, .EUR : 0.34, .USD : 0.39, .HUF : 120.0])
     var secondCurrencyState: Currency = Currency(code: .USD, exchangeRate: [.USD : 1.0, .BYN : 2.57, .EUR : 0.88, .HUF: 309.51])
     
-    //MARK: Super methods
+    //MARK: Overriden methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = true
+        view.addGestureRecognizer(tapGesture)
+        
         configureView()
     }
     
@@ -104,23 +109,39 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
         switch sender {
         case firstTextField :
             guard let tempText = firstTextField.text else { return }
-            let text = tempText.replacingOccurrences(of: ",", with: ".")
+            var text = tempText.replacingOccurrences(of: ",", with: ".")
+            //if the text contained more than 1 comma or dot, element would be removed
+            if text.contains([".", ","], moreThan: 1) {
+                firstTextField.text!.removeLast()
+                text.removeLast()
+            }
+            
             guard let number = Double(text) else {
                       secondTextField.text = ""
                       return
             }
             if let exchangeRate = firstCurrencyState.exchangeRate[secondCurrencyState.code] {
-                self.secondTextField.text = String(number * exchangeRate)
+                //round to hundredths
+                let roundedValue = round(number * exchangeRate * 100) / 100
+                self.secondTextField.text = String(roundedValue)
             }
         case secondTextField:
             guard let tempText = secondTextField.text else { return }
-            let text = tempText.replacingOccurrences(of: ",", with: ".")
+            var text = tempText.replacingOccurrences(of: ",", with: ".")
+            //if the text contained more than 1 comma or dot, element would be removed
+            if text.contains([".", ","], moreThan: 1) {
+                secondTextField.text!.removeLast()
+                text.removeLast()
+            }
+            
             guard let number = Double(text) else {
-                      firstTextField.text = ""
-                      return
+                firstTextField.text = ""
+                return
             }
             if let exchangeRate = secondCurrencyState.exchangeRate[firstCurrencyState.code] {
-                self.firstTextField.text = String(number * exchangeRate)
+                //round to hundredths
+                let roundedValue = round(number * exchangeRate * 100) / 100
+                self.firstTextField.text = String(roundedValue)
             }
         default:
             return
@@ -134,11 +155,6 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
         sender.configuration = config
     }
     
-    ///  Summary Summary Summary Summary
-    /// - Parameter controller: Class using delegate
-    /// - Parameter currency: Given value
-    /// - Parameter isFirstButton: Boolean that diffirintiates that class has been initialized within first button
-    /// - Returns: Nothing
     func selectCurrencyTableViewController(_ controller: SelectCurrencyTableViewController, didSelect currency: Currency, isFirstButton: Bool) {
         if isFirstButton {
             self.firstCurrencyState = currency
@@ -153,6 +169,7 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
         }
     }
     
+
     // MARK: Selectors
     @objc func configureButtonTapped() {
         view.window?.overrideUserInterfaceStyle = .dark
@@ -177,5 +194,29 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
     
     @objc func textEditingChanged(_ sender: UITextField) {
         updateTextFieldsState(sender)
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+}
+// MARK: Extensions
+extension String {
+    /// Method for checking string on containing specific elements
+    /// - Returns: True if string contains more than given elements in itself
+    func contains(_ elements: [String.Element], moreThan maxValueOfElment: Int) -> Bool {
+        var symbolCounter = 0
+        for i in elements {
+            for textIndex in self {
+                if textIndex == i {
+                    symbolCounter += 1
+                }
+            }
+        }
+        if symbolCounter > maxValueOfElment {
+            return true
+        } else {
+            return false
+        }
     }
 }
