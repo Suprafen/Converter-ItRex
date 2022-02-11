@@ -12,7 +12,6 @@
 		E205A89527B271BF002BA08B /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E205A89427B271BF002BA08B /* ConverterViewController.swift */; };
 		E205A89A27B271C1002BA08B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E205A89927B271C1002BA08B /* Assets.xcassets */; };
 		E205A89D27B271C1002BA08B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E205A89B27B271C1002BA08B /* LaunchScreen.storyboard */; };
-		E205A8C527B38478002BA08B /* ExchangeRate.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E205A8C427B38478002BA08B /* ExchangeRate.swift.swift */; };
 		E205A8C727B38713002BA08B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E205A8C627B38713002BA08B /* Model.swift */; };
 		E205A8C927B3ACBA002BA08B /* SelectCurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E205A8C827B3ACBA002BA08B /* SelectCurrencyTableViewController.swift */; };
 		E205A8CB27B3B73A002BA08B /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E205A8CA27B3B73A002BA08B /* CurrencyTableViewCell.swift */; };
@@ -26,7 +25,6 @@
 		E205A89927B271C1002BA08B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E205A89C27B271C1002BA08B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E205A89E27B271C1002BA08B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E205A8C427B38478002BA08B /* ExchangeRate.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRate.swift.swift; sourceTree = "<group>"; };
 		E205A8C627B38713002BA08B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E205A8C827B3ACBA002BA08B /* SelectCurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrencyTableViewController.swift; sourceTree = "<group>"; };
 		E205A8CA27B3B73A002BA08B /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
@@ -67,7 +65,6 @@
 				E205A89427B271BF002BA08B /* ConverterViewController.swift */,
 				E205A8C827B3ACBA002BA08B /* SelectCurrencyTableViewController.swift */,
 				E205A8CA27B3B73A002BA08B /* CurrencyTableViewCell.swift */,
-				E205A8C427B38478002BA08B /* ExchangeRate.swift.swift */,
 				E205A8C627B38713002BA08B /* Model.swift */,
 				E205A89927B271C1002BA08B /* Assets.xcassets */,
 				E205A89B27B271C1002BA08B /* LaunchScreen.storyboard */,
@@ -150,7 +147,6 @@
 				E205A8C927B3ACBA002BA08B /* SelectCurrencyTableViewController.swift in Sources */,
 				E205A8C727B38713002BA08B /* Model.swift in Sources */,
 				E205A89527B271BF002BA08B /* ConverterViewController.swift in Sources */,
-				E205A8C527B38478002BA08B /* ExchangeRate.swift.swift in Sources */,
 				E205A89127B271BF002BA08B /* AppDelegate.swift in Sources */,
 				E205A89327B271BF002BA08B /* SceneDelegate.swift in Sources */,
 			);
@@ -298,6 +294,7 @@
 				INFOPLIST_FILE = CurrencyConverter/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -309,7 +306,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -325,6 +322,7 @@
 				INFOPLIST_FILE = CurrencyConverter/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -336,7 +334,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -8,6 +8,11 @@
 import UIKit
 
 protocol SelectCurrencyTableViewDelegate: AnyObject {
+    /// Method for performing transfer data between views
+    /// - Parameter controller: Controller that uses delegate
+    /// - Parameter currency: Selected currency, which will be sent
+    /// - Parameter isFirstButton: True - if method has been called from first button, otherwise false
+    /// - Returns: Nothing
     func selectCurrencyTableViewController(_ controller: SelectCurrencyTableViewController, didSelect currency: Currency, isFirstButton: Bool)
 }
 
@@ -37,7 +42,7 @@ class SelectCurrencyTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyTableViewCell.reuseIdentifier, for: indexPath) as! CurrencyTableViewCell
             
             cell.configure(with: currency)
-            
+            // Place checkmark alongside picked currency
             if self.currency == Currency.availableCurrencies[indexPath.row] {
                 cell.accessoryType = .checkmark
             } else {

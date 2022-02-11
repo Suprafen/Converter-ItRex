@@ -60,7 +60,7 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
     //MARK: Overriden methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //Tap gesture for dismissing keyboard by tapping anywhere when text editing active
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tapGesture.cancelsTouchesInView = true
         view.addGestureRecognizer(tapGesture)
@@ -103,14 +103,23 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
         updateButtonState(secondButton, currency: secondCurrencyState)
         secondTextField.leftView = secondButton
     }
-    
+    /// Check which text field is making editing.
+    ///
+    ///  Method is responsible for:
+    /// - Replacement commas on dots (because particular languages have commas instead dots in numeric keyboard)
+    /// - Rounding values to two digits after decimal point
+    /// - Dynamically change value of another text field
+    ///
+    /// - Parameter sender: Text field which is being edited
+    /// - Returns: Nothing
     func updateTextFieldsState(_ sender: UITextField) {
         
         switch sender {
         case firstTextField :
+            // Check whether textfield contains text
             guard let tempText = firstTextField.text else { return }
             var text = tempText.replacingOccurrences(of: ",", with: ".")
-            //if the text contained more than 1 comma or dot, element would be removed
+            // If the text contained more than 1 comma or dot, element would be removed
             if text.contains([".", ","], moreThan: 1) {
                 firstTextField.text!.removeLast()
                 text.removeLast()
@@ -120,15 +129,17 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
                       secondTextField.text = ""
                       return
             }
+            // Get the value for corresponding currency from dictionary
             if let exchangeRate = firstCurrencyState.exchangeRate[secondCurrencyState.code] {
-                //round to hundredths
+                // Round to hundredths
                 let roundedValue = round(number * exchangeRate * 100) / 100
                 self.secondTextField.text = String(roundedValue)
             }
         case secondTextField:
+            // Check whether textfield contains text
             guard let tempText = secondTextField.text else { return }
             var text = tempText.replacingOccurrences(of: ",", with: ".")
-            //if the text contained more than 1 comma or dot, element would be removed
+            // If the text contained more than 1 comma or dot, element would be removed
             if text.contains([".", ","], moreThan: 1) {
                 secondTextField.text!.removeLast()
                 text.removeLast()
@@ -138,6 +149,7 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
                 firstTextField.text = ""
                 return
             }
+            // Get the value for corresponding currency from dictionary
             if let exchangeRate = secondCurrencyState.exchangeRate[firstCurrencyState.code] {
                 //round to hundredths
                 let roundedValue = round(number * exchangeRate * 100) / 100
@@ -147,14 +159,17 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
             return
         }
     }
-    
+    /// Update button appearance according to currency
+    /// - Parameter sender: Button which need to be updated
+    /// - Parameter currency: Currency which need to be showed on the button's appearance
+    /// - Returns: Nothing
     func updateButtonState(_ sender: UIButton, currency: Currency) {
         var config = UIButton.Configuration.plain()
         config.baseForegroundColor = .systemGray
         config.title = currency.code.rawValue
         sender.configuration = config
     }
-    
+    // Delegate method
     func selectCurrencyTableViewController(_ controller: SelectCurrencyTableViewController, didSelect currency: Currency, isFirstButton: Bool) {
         if isFirstButton {
             self.firstCurrencyState = currency
@@ -169,18 +184,13 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
         }
     }
     
-
     // MARK: Selectors
-    @objc func configureButtonTapped() {
-        view.window?.overrideUserInterfaceStyle = .dark
-        view.backgroundColor = .black
-    }
-    
     @objc func firstButtonTapped() {
         let currencyTableView =  SelectCurrencyTableViewController()
         currencyTableView.currency = firstCurrencyState
         currencyTableView.isFirstButton = true
         currencyTableView.delegate = self
+        view.endEditing(true)
         navigationController?.pushViewController(currencyTableView, animated: true)
     }
     
@@ -189,6 +199,7 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
         currencyTableView.currency = secondCurrencyState
         currencyTableView.isFirstButton = false
         currencyTableView.delegate = self
+        view.endEditing(true)
         navigationController?.pushViewController(currencyTableView, animated: true)
     }
     
