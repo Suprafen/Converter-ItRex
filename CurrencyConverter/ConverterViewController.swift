@@ -214,6 +214,8 @@ class ConverterViewController: UIViewController, SelectCurrencyTableViewDelegate
 // MARK: Extensions
 extension String {
     /// Method for checking string on containing specific elements
+    /// - Parameter elements: Array of tracking elements
+    /// - Parameter maxValueOfElement: Max value of  elements in the string
     /// - Returns: True if string contains more than given elements in itself
     func contains(_ elements: [String.Element], moreThan maxValueOfElment: Int) -> Bool {
         var symbolCounter = 0
