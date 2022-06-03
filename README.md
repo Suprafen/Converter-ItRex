@@ -1,6 +1,6 @@
 # Converter-ItRex
 
-## Currency converter
+## Currency converter / Project for an interview
 
 Simple currency converter with two text fields. Each of them contains a button with a flag and code corresponding to particular country.
 
